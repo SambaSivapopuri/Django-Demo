@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>Django Demo</h1>
+<ul>
+    <li><a href="{% url 'hello' %}">Hello World (HttpResponse)</a></li>
+    <li><a href="{% url 'hello_template' %}">Hello World (template)</a></li>
+    <li><a href="{% url 'student_list' %}">Students (staff only)</a></li>
+</ul>
+{% endblock %}

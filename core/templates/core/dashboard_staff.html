@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Staff Dashboard{% endblock %}
+{% block content %}
+<h1>Staff Dashboard</h1>
+<p>Welcome, {{ user.username }}. You can manage students here.</p>
+<a href="{% url 'student_list' %}">Manage Students</a>
+{% endblock %}

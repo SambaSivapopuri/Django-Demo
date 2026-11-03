@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Student{% endblock %}
+{% block content %}
+<h2>{% if student %}Edit{% else %}Add{% endif %} Student</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>Name:  <input name="name"  value="{{ student.name }}" required></p>
+    <p>Email: <input name="email" type="email" value="{{ student.email }}" required></p>
+    <p>Age:   <input name="age"   type="number" value="{{ student.age }}" required></p>
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

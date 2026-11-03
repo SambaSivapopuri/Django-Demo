@@ -616,36 +616,23 @@ User.objects.create_user("teacher1", password="Pass@1234", is_staff=True)
 
 ### Registration page
 
-`core/forms.py` (new file):
-```python
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-
-
-class RegisterForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-
-    class Meta:
-        model = User
-        fields = ("username", "email", "password1", "password2")
-```
+Django already ships a ready-made registration form (`UserCreationForm`), so no extra `forms.py` file is needed.
 
 `core/views.py` (add):
 ```python
 from django.contrib.auth import login
-from .forms import RegisterForm
+from django.contrib.auth.forms import UserCreationForm
 
 
 def register(request):
     if request.method == "POST":
-        form = RegisterForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()          # is_staff / is_superuser are False by default
             login(request, user)        # log them in right after registering
             return redirect("dashboard")
     else:
-        form = RegisterForm()
+        form = UserCreationForm()
     return render(request, "registration/register.html", {"form": form})
 ```
 
@@ -776,7 +763,6 @@ def dashboard(request):
 {% block content %}
 <h1>My Dashboard</h1>
 <p>Welcome, {{ user.username }}.</p>
-<p>Email: {{ user.email }}</p>
 <p>Joined: {{ user.date_joined|date:"d M Y" }}</p>
 {% endblock %}
 ```
